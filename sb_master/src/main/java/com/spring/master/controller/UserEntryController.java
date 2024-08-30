@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.master.entity.JournalEntry;
-import com.spring.master.service.JournalEntryService;
+import com.spring.master.entity.UserEntry;
+import com.spring.master.service.UserEntryService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -25,15 +25,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * @author NaveenWodeyar
  * @date 30-Aug-2024
  */
-@Tag(name = "JournalEntry_Controller",description = "Journal_Entry CRUD API's,")
+@Tag(name = "UserEntry_Controller",description = "User_Entity related API's,,")
 @RestController
-@RequestMapping("/v1/journal")
-public class JournalEntryController {
+@RequestMapping("/v1/user")
+public class UserEntryController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JournalEntryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserEntryController.class);
 
 	@Autowired
-	private JournalEntryService journalEntryService;
+	private UserEntryService userEntryService;
 
 	@GetMapping
 	public ResponseEntity<Object> test() {
@@ -42,43 +42,47 @@ public class JournalEntryController {
 				.body("Welcome to the Journal Entry controller!");
 	}
 
-	@GetMapping("/{jeId}")
-	public ResponseEntity<Object> getJournalEntry(@RequestParam String jeId) {
+	@GetMapping("/{userId}")
+	public ResponseEntity<Object> getUserEntry(@RequestParam String userId) {
 		LOGGER.info("Inside getJournalEntry()");
-		JournalEntry journalEntry = journalEntryService.getJournal(jeId);
+		UserEntry userEntry = userEntryService.getUserEntry(userId);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
-				.body(journalEntry);
+				.body(userEntry);
 	}
 
 	@GetMapping("/list")
 	public ResponseEntity<Object> getJournalList() {
 		LOGGER.info("Inside getJournalEntryList()");
-		List<JournalEntry> journals = journalEntryService.getJournals();
-		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json").body(journals);
+		List<UserEntry> userEntries = userEntryService.getUserEntries();
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.header("HttpHeaders.class", "application/json")
+				.body(userEntries);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Object> addJournalEntry(@RequestBody JournalEntry request) {
+	public ResponseEntity<Object> addJournalEntry(@RequestBody UserEntry request) {
 		LOGGER.info("Inside addJournalEntry()");
-		JournalEntry journalEntry = journalEntryService.addJournal(request);
+		UserEntry userEntry = userEntryService.addUserEntry(request);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
-				.body(journalEntry);
+				.body(userEntry);
 	}
 
-	@PutMapping("/jeId")
-	public ResponseEntity<Object> updateJournalEntry(@RequestBody JournalEntry request, @PathVariable String jeId) {
+	@PutMapping("/userId")
+	public ResponseEntity<Object> updateJournalEntry(@RequestBody UserEntry request, @PathVariable String userId) {
 		LOGGER.info("Inside updateJournalEntry()");
-		JournalEntry journalEntry = journalEntryService.editJournal(request, jeId);
-		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
-				.body(journalEntry);
+		UserEntry userEntry = userEntryService.editUserEntry(request, userId);
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.header("HttpHeaders.class", "application/json")
+				.body(userEntry);
 	}
 
-	@DeleteMapping("/jeId")
-	public ResponseEntity<Object> deleteteJournalEntry(@PathVariable String jeId) {
+	@DeleteMapping("/userId")
+	public ResponseEntity<Object> deleteteJournalEntry(@PathVariable String userId) {
 		LOGGER.info("Inside deleteJournalEntry()");
-		journalEntryService.deleteJournal(jeId);
-		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
-				.body("Journal Entry deleted successfully " + jeId);
+		userEntryService.deleteUserEntry(userId);
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.header("HttpHeaders.class", "application/json")
+				.body("Journal Entry deleted successfully " + userId);
 	}
 
 }
