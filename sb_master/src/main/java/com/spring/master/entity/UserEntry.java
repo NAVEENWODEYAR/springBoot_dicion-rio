@@ -35,7 +35,7 @@ public class UserEntry {
 	private String userPassword;
 	
 	@DBRef
-	private List<JournalEntry> jounalEntires = new ArrayList<>();
+	private List<JournalEntry> journalEntries = new ArrayList<>();
 	 
 
 }
