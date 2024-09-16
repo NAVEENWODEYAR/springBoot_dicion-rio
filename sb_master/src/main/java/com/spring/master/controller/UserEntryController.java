@@ -44,7 +44,7 @@ public class UserEntryController {
 
 	@GetMapping("/{userId}")
 	public ResponseEntity<Object> getUserEntry(@RequestParam String userId) {
-		LOGGER.info("Inside getJournalEntry()");
+		LOGGER.info("Inside getJournalEntry() {}",userId);
 		UserEntry userEntry = userEntryService.getUserEntry(userId);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
 				.body(userEntry);

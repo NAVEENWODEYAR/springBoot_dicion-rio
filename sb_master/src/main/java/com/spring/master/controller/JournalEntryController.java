@@ -59,7 +59,7 @@ public class JournalEntryController {
 
 	@PostMapping("/add")
 	public ResponseEntity<Object> addJournalEntry(@RequestBody JournalEntry request) {
-		LOGGER.info("Inside addJournalEntry()");
+		LOGGER.info("Inside addJournalEntry() {}",request);
 		JournalEntry journalEntry = journalEntryService.addJournal(request);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
 				.body(journalEntry);
@@ -67,15 +67,16 @@ public class JournalEntryController {
 
 	@PutMapping("/jeId")
 	public ResponseEntity<Object> updateJournalEntry(@RequestBody JournalEntry request, @PathVariable String jeId) {
-		LOGGER.info("Inside updateJournalEntry()");
+		LOGGER.info("Inside updateJournalEntry() {}",request.getJournalTitle());
 		JournalEntry journalEntry = journalEntryService.editJournal(request, jeId);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
 				.body(journalEntry);
 	}
 
 	@DeleteMapping("/jeId")
-	public ResponseEntity<Object> deleteteJournalEntry(@PathVariable String jeId) {
+	public ResponseEntity<Object> deleteJournalEntry(@PathVariable String jeId) {
 		LOGGER.info("Inside deleteJournalEntry()");
+		LOGGER.error("DeleteJournalEntry {}", jeId);
 		journalEntryService.deleteJournal(jeId);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
 				.body("Journal Entry deleted successfully " + jeId);
