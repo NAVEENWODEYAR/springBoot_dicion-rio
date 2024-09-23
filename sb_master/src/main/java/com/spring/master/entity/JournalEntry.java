@@ -11,6 +11,7 @@ import com.mongodb.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author NaveenWodeyar
@@ -19,6 +20,7 @@ import lombok.Data;
 @Document(collection = "SB_JOURNAL_ENTRY")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class JournalEntry {
 	
 	@Id
@@ -33,4 +35,61 @@ public class JournalEntry {
 	@JsonFormat(pattern = "DD-MM-YYYY")
 	private LocalDate date;
 
+	/**
+	 * @return the journalId
+	 */
+	public String getJournalId() {
+		return journalId;
+	}
+
+	/**
+	 * @param journalId the journalId to set
+	 */
+	public void setJournalId(String journalId) {
+		this.journalId = journalId;
+	}
+
+	/**
+	 * @return the journalTitle
+	 */
+	public String getJournalTitle() {
+		return journalTitle;
+	}
+
+	/**
+	 * @param journalTitle the journalTitle to set
+	 */
+	public void setJournalTitle(String journalTitle) {
+		this.journalTitle = journalTitle;
+	}
+
+	/**
+	 * @return the journalContent
+	 */
+	public String getJournalContent() {
+		return journalContent;
+	}
+
+	/**
+	 * @param journalContent the journalContent to set
+	 */
+	public void setJournalContent(String journalContent) {
+		this.journalContent = journalContent;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public LocalDate getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	
 }
