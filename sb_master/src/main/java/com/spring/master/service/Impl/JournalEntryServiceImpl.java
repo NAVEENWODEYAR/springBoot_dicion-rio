@@ -20,6 +20,10 @@ public class JournalEntryServiceImpl implements JournalEntryService{
 	@Autowired
 	private JournalEntryRepository journalEntryRepository;
 
+	public String test() {
+		return "Dummy test case,";
+	}
+	
 	@Override
 	public JournalEntry addJournal(JournalEntry journalEntry) {
 		return journalEntryRepository.save(journalEntry);

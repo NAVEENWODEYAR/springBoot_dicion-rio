@@ -1,24 +1,14 @@
 package com.spring.master.controller;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.spring.master.entity.JournalEntry;
 import com.spring.master.service.JournalEntryService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -67,7 +57,7 @@ public class JournalEntryController {
 
 	@PutMapping("/jeId")
 	public ResponseEntity<Object> updateJournalEntry(@RequestBody JournalEntry request, @PathVariable String jeId) {
-		LOGGER.info("Inside updateJournalEntry() {}",request.getJournalTitle());
+		LOGGER.info("Inside updateJournalEntry() {}");
 		JournalEntry journalEntry = journalEntryService.editJournal(request, jeId);
 		return ResponseEntity.status(HttpStatus.FOUND).header("HttpHeaders.class", "application/json")
 				.body(journalEntry);
