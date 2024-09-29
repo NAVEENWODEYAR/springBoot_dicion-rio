@@ -16,7 +16,7 @@ public class JournalEntryServiceImplTest {
 	
 	@Test
 	public void dummyTest() {
-		when(journalEntryServiceImpl.test()).thenReturn("test");
+		when(journalEntryServiceImpl.test()).thenReturn("Dummy test case,");
 		assertEquals("Dummy test case,", journalEntryServiceImpl.test());
 	}
 
