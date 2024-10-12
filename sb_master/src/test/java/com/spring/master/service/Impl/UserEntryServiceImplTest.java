@@ -28,14 +28,14 @@ class UserEntryServiceImplTest {
     private UserEntryRepository userEntryRepository;
 
     private UserEntry userEntry;
-    private final String userId = "testUserId";
+    private final Object userId = "testUserId";
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         userEntry = new UserEntry();
-        userEntry.setId(userId);
-        userEntry.setName("Test User"); // Assuming there's a name field
+        userEntry.setUserId(userId);
+        userEntry.setUserName("Test User"); 
     }
 
     @Test
@@ -45,23 +45,23 @@ class UserEntryServiceImplTest {
         UserEntry result = userEntryService.addUserEntry(userEntry);
 
         assertNotNull(result);
-        assertEquals(userId, result.getId());
+        assertEquals(userId, result.getUserId());
         verify(userEntryRepository, times(1)).save(userEntry);
     }
 
     @Test
     void editUserEntry_ShouldUpdateAndReturnUserEntry() {
         UserEntry updatedUserEntry = new UserEntry();
-        updatedUserEntry.setId(userId);
-        updatedUserEntry.setName("Updated User");
+        updatedUserEntry.setUserId(userId);
+        updatedUserEntry.setUserName("Updated User");
 
         when(userEntryRepository.findById(userId)).thenReturn(Optional.of(userEntry));
         when(userEntryRepository.save(any(UserEntry.class))).thenReturn(updatedUserEntry);
 
-        UserEntry result = userEntryService.editUserEntry(updatedUserEntry, userId);
+        UserEntry result = userEntryService.editUserEntry(updatedUserEntry, " ");
 
         assertNotNull(result);
-        assertEquals("Updated User", result.getName());
+        assertEquals("Updated User", result.getUserName());
         verify(userEntryRepository, times(1)).findById(userId);
         verify(userEntryRepository, times(1)).save(updatedUserEntry);
     }
@@ -70,10 +70,10 @@ class UserEntryServiceImplTest {
     void getUserEntry_ShouldReturnUserEntry() {
         when(userEntryRepository.findById(userId)).thenReturn(Optional.of(userEntry));
 
-        UserEntry result = userEntryService.getUserEntry(userId);
+        UserEntry result = userEntryService.getUserEntry("userId");
 
         assertNotNull(result);
-        assertEquals(userId, result.getId());
+        assertEquals(userId, result.getUserId());
         verify(userEntryRepository, times(1)).findById(userId);
     }
 
@@ -92,7 +92,7 @@ class UserEntryServiceImplTest {
     void deleteUserEntry_ShouldDeleteUserEntry() {
         doNothing().when(userEntryRepository).deleteById(userId);
 
-        String result = userEntryService.deleteUserEntry(userId);
+        String result = userEntryService.deleteUserEntry("userId");
 
         assertEquals("", result);
         verify(userEntryRepository, times(1)).deleteById(userId);
